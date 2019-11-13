@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import cities from 'cities.json';
+import { WeatherapiService } from './weatherapi.service';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +10,32 @@ import cities from 'cities.json';
 export class AppComponent implements OnInit {
 
   title = 'BonnieClyde-SimpleWeather';
+  cities: any;
+  selectedCity: any;
+  ciudadesAgregadas: any;
+  weatherApi: WeatherapiService;
+
+  constructor( weatherApi: WeatherapiService) {
+    this.ciudadesAgregadas = [];
+    this.weatherApi = weatherApi;
+  }
 
   ngOnInit() {
+    this.cities = cities;
+    console.log(this.cities);
+  }
 
-    console.log(cities);
+  printSelectedCity() {
+    console.log(this.selectedCity);
+  }
 
+  addCity() {
+    this.weatherApi.getCity(+this.selectedCity.lat, +this.selectedCity.lng)
+    .toPromise()
+    .then( data => {
+      this.ciudadesAgregadas.push({...data, name: this.selectedCity.name});
+      console.log(this.ciudadesAgregadas);
+    } );
   }
 
 }

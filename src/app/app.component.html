@@ -1,49 +1,60 @@
-<br>
-<br>
-<div>
+<div style="height: 100%;display: flex;flex-direction: column;">
 
   <!-- Main container -->
-  <nav class="level container hero is-info">
-    <!-- Left side -->
-    <div class="level-left">
-      <div class="level-item">
-        <p class="title">
-          <strong>Simple Weather</strong>
-        </p>
+  <nav class="navbar" style="min-height: 77px; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.06), 0px 4px 6px rgba(0, 0, 0, 0.06);padding: 8px" role="navigation" aria-label="main navigation">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item">
+          <img style="max-height: initial;" src="../assets/images/SimpleWeather.svg">
+        </a>
       </div>
-    </div>
-
-    <!-- Right side -->
-    <div class="level-right">
-      <div class="field">
-        <label class="label">Subject</label>
-        <div class="control">
-          <div class="select">
-            <select>
-              <option>Select dropdown</option>
-              <option>With options</option>
-            </select>
+    
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-end">
+          <div class="navbar-item">
+          <ng-select [items]="cities"
+          placeholder="Buscar ciudad"
+               style="width: 200px"
+              [virtualScroll]="true"
+              bindLabel="name"
+              (change)="printSelectedCity()"
+              [(ngModel)]="selectedCity">
+              <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                  <div>{{ item.country + '-' + item.name}}</div>
+              </ng-template>
+        </ng-select>
+          </div>
+          <div class="navbar-item">
+            <div class="buttons">
+              <a (click)="addCity()" class="button is-primary">
+                <strong>+ Agregar ciudad</strong>
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </nav>
-  <hr>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <div class="container">
-    <div class="columns">
-      <div class="column ">1</div>
-      <div class="column ">2</div>
-      <div class="column ">3</div>
-      <div class="column ">4</div>
-      <div class="column ">5</div>
+
+  <div class="container" style=" align-items: center; display: flex;">
+  <div *ngIf="ciudadesAgregadas.length == 0" style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+    <img src="../assets/images/emptyImage.svg" style="max-width: 124px; margin-bottom: 16px; margin-top: 16px;" alt="empty">
+    <h3 class="subtitle is-3" style="color: grey">Agregue una ciudad</h3>
+  </div>
+    <div *ngIf="ciudadesAgregadas.length > 0" class="columns" style="flex-wrap: wrap;">
+      <div style="max-width: 300px; min-width: 260px; cursor: pointer;" *ngFor="let ciudad of ciudadesAgregadas" class="column">
+        <div style="border-radius: 8px" class="card">
+            <div class="card-image">
+                <figure class="image is-4by3">
+                  <img src="../assets/images/{{ciudad.currently.icon}}.svg" alt="Placeholder image">
+                </figure>
+              </div>
+          <div class="card-content">
+            <h3 class="title is-3">{{((5/9) * (ciudad.currently.temperature - 32) | number: '1.0-0') + ' grados C'}}</h3> 
+            {{ciudad.name}}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
