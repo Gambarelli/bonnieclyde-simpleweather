@@ -33,17 +33,17 @@
     </div>
   </nav>
 
-  <!-- <div class="container" style=" align-items: center; display: flex;">
+  <div class="container" style=" align-items: center; display: flex;">
     <div *ngIf="ciudadesAgregadas.length == 0"
       style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
       <img src="../assets/images/emptyImage.svg" style="max-width: 124px; margin-bottom: 16px; margin-top: 16px;"
         alt="empty">
       <h3 class="subtitle is-3" style="color: grey">Agregue una ciudad</h3>
     </div>
-    <div *ngIf="ciudadesAgregadas.length > 0" class="columns" style="flex-wrap: wrap;">
+    <div *ngIf="!currentCity && ciudadesAgregadas.length > 0" class="columns" style="flex-wrap: wrap;">
       <div style="max-width: 300px; min-width: 260px; cursor: pointer;" *ngFor="let ciudad of ciudadesAgregadas"
         class="column">
-        <div style="border-radius: 8px" class="card">
+        <div style="border-radius: 8px" class="card" (click)="selectCurrentCity(ciudad)">
           <div class="card-image">
             <figure class="image is-4by3">
               <img src="../assets/images/{{ciudad.currently.icon}}.svg" alt="Placeholder image">
@@ -57,15 +57,11 @@
         </div>
       </div>
     </div>
-  </div> -->
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <div *ngIf="ciudadesAgregadas.length > 0" class="container is-fluid">
-    <div style=" cursor: pointer; " class=" columns" *ngFor="let ciudad of ciudadesAgregadas">
-      <div *ngFor="let data of ciudad.daily.data" style="border-radius: 8px" class="card column">
+  </div> 
+
+  <div *ngIf="currentCity" class="container is-fluid">
+    <div style=" cursor: pointer; " class=" columns">
+      <div *ngFor="let data of currentCity.daily.data" style="border-radius: 8px" class="card column">
         <div class="card-image">
           <figure class="image is-4by3">
             <img src="../assets/images/{{data.icon}}.svg" alt="Placeholder image">
