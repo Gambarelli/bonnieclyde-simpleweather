@@ -14,7 +14,8 @@ export class AppComponent implements OnInit {
   selectedCity: any;
   ciudadesAgregadas: any;
   weatherApi: WeatherapiService;
-  currentCity: any = false;
+  currentCity: any;
+  showCurrentCity: any = false;
 
   constructor( weatherApi: WeatherapiService) {
     this.ciudadesAgregadas = [];
@@ -33,7 +34,12 @@ export class AppComponent implements OnInit {
 
   selectCurrentCity(ciudad) {
     this.currentCity = ciudad;
+    this.showCurrentCity = true;
     console.log(this.currentCity);
+  }
+
+  goBack() {
+    this.showCurrentCity = false;
   }
 
   addCity() {

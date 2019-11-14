@@ -26,6 +26,9 @@
               <a (click)="addCity()" class="button is-primary">
                 <strong>+ Agregar ciudad</strong>
               </a>
+              <a *ngIf="showCurrentCity" (click)="goBack()" class="button is-light">
+                <strong>Regresar</strong>
+              </a>
             </div>
           </div>
         </div>
@@ -40,7 +43,7 @@
         alt="empty">
       <h3 class="subtitle is-3" style="color: grey">Agregue una ciudad</h3>
     </div>
-    <div *ngIf="!currentCity && ciudadesAgregadas.length > 0" class="columns" style="flex-wrap: wrap;">
+    <div *ngIf="!showCurrentCity && ciudadesAgregadas.length > 0" class="columns" style="flex-wrap: wrap;">
       <div style="max-width: 300px; min-width: 260px; cursor: pointer;" *ngFor="let ciudad of ciudadesAgregadas"
         class="column">
         <div style="border-radius: 8px" class="card" (click)="selectCurrentCity(ciudad)">
@@ -59,7 +62,7 @@
     </div>
   </div> 
 
-  <div *ngIf="currentCity" class="container is-fluid">
+  <div *ngIf="showCurrentCity" class="container is-fluid">
     <div style=" cursor: pointer; " class=" columns">
       <div *ngFor="let data of currentCity.daily.data" style="border-radius: 8px" class="card column">
         <div class="card-image">
