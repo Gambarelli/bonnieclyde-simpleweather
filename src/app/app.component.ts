@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
     this.weatherApi = weatherApi;
   }
 
+  // ciudad.daily.data[1].summary
   ngOnInit() {
     this.cities = cities;
     console.log(this.cities);

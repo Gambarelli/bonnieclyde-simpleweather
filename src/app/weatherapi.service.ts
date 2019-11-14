@@ -11,6 +11,7 @@ export class WeatherapiService {
   constructor(private http: HttpClient) { }
 
   getCity(lat: number, lng: number) {
+    console.log(this.apiUrl + lat + ',' + lng);
     return this.http.get(this.apiUrl + lat + ',' + lng);
   }
 
